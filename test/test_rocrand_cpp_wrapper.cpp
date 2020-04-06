@@ -21,6 +21,7 @@
 #include <stdio.h>
 #include <gtest/gtest.h>
 
+#include <climits>
 #include <hip/hip_runtime.h>
 #include <rocrand.hpp>
 

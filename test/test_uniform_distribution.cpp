@@ -22,6 +22,8 @@
 #include <gtest/gtest.h>
 
 #include <random>
+#include <cmath>
+#include <climits>
 
 #include <rng/distribution/uniform.hpp>
 

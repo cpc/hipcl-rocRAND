@@ -21,10 +21,10 @@
 #include <stdio.h>
 #include <gtest/gtest.h>
 
+#include <hip/hip_runtime.h>
 #include <vector>
 #include <cmath>
-
-#include <hip/hip_runtime.h>
+#include <climits>
 
 #define QUALIFIERS __forceinline__ __host__ __device__
 #include <hiprand_kernel.h>

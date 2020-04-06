@@ -23,7 +23,7 @@
 
 #include <vector>
 #include <cmath>
-
+#include <climits>
 #include <hip/hip_runtime.h>
 
 #define FQUALIFIERS __forceinline__ __host__ __device__

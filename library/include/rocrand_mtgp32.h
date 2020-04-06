@@ -55,6 +55,8 @@
 #ifndef ROCRAND_MTGP32_H_
 #define ROCRAND_MTGP32_H_
 
+#include <string.h>
+#include <stdio.h>
 #include <stdlib.h>
 
 #ifndef FQUALIFIERS

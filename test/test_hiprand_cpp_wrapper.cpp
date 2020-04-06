@@ -24,6 +24,9 @@
 #include <hip/hip_runtime.h>
 #include <hiprand.hpp>
 
+#include <cmath>
+#include <climits>
+
 #define HIP_CHECK(x) ASSERT_EQ(x, hipSuccess)
 
 TEST(hiprand_cpp_wrapper, hiprand_error)
