@@ -31,9 +31,9 @@
 
 TEST(hiprand_linkage_tests, get_version_test)
 {
-    #ifdef __HIP_PLATFORM_HCC__
+    #if defined(__HIP_PLATFORM_HCC__) || defined(__HIP_PLATFORM_HIPCL__)
     EXPECT_EQ(get_hiprand_version(), HIPRAND_VERSION);
-    #else
+    #elif defined(__HIP_PLATFORM_NVCC__)
     EXPECT_EQ(get_hiprand_version(), CUDART_VERSION);
     #endif
 }

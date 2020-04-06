@@ -52,7 +52,7 @@
 #define HIPRAND_VERSION
 #endif
 
-#if defined(__HIP_PLATFORM_HCC__)
+#if defined(__HIP_PLATFORM_HCC__) || defined(__HIP_PLATFORM_HIPCL__)
 #include "hiprand_hcc.h"
 #elif defined(__HIP_PLATFORM_NVCC__)
 #include "hiprand_nvcc.h"
