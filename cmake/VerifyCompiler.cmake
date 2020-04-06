@@ -41,6 +41,17 @@ elseif(HIP_PLATFORM STREQUAL "hcc")
         find_package(hcc REQUIRED CONFIG PATHS /opt/rocm)
         find_package(hip REQUIRED CONFIG PATHS /opt/rocm)
     endif()
+elseif(HIP_PLATFORM STREQUAL "hipcl")
+    message(STATUS "using hipCL+Clang")
+
+execute_process(
+    COMMAND ${HIP_HIPCONFIG_EXECUTABLE} --cpp_config
+    OUTPUT_VARIABLE HIP_CPP_CONFIG_FLAGS
+    OUTPUT_STRIP_TRAILING_WHITESPACE
+    ERROR_STRIP_TRAILING_WHITESPACE
+)
+string(REPLACE " " ";" HIP_CPP_CONFIG_FLAGS ${HIP_CPP_CONFIG_FLAGS})
+
 else()
     message(FATAL_ERROR "HIP_PLATFORM must be 'hcc' or 'clang' (AMD ROCm platform) or `nvcc` (NVIDIA CUDA platform).")
 endif()

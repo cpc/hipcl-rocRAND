@@ -23,13 +23,15 @@
 cmake_minimum_required(VERSION 3.5.1 FATAL_ERROR)
 
 # Install prefix
-set(CMAKE_INSTALL_PREFIX "/opt/rocm" CACHE PATH "Install path prefix, prepended onto install directories")
+set(CMAKE_INSTALL_PREFIX "/opt/hipcl" CACHE PATH "Install path prefix, prepended onto install directories")
 
 # CMake modules
 list(APPEND CMAKE_MODULE_PATH
     ${CMAKE_CURRENT_SOURCE_DIR}/cmake
     ${CMAKE_CURRENT_SOURCE_DIR}/cmake/Modules
-    ${HIP_PATH}/cmake /opt/rocm/hip/cmake # FindHIP.cmake
+    ${HIP_PATH}/cmake
+    /opt/hipcl/lib/hipcl/cmake
+    /opt/rocm/cmake # FindHIP.cmake
 )
 
 #

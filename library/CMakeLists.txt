@@ -14,7 +14,12 @@ endforeach()
 
 # When enabled, it defines ROCRAND_ENABLE_INLINE_ASM in rocrand_version.h, which
 # turns on inline asm in rocRAND (for both compiled library and device functions).
+if(NOT HIP_PLATFORM STREQUAL "hipcl")
 option(ENABLE_INLINE_ASM "Enable inline asm optimisations in rocRAND" ON)
+else()
+# add_compile_options(${HIP_CPP_CONFIG_FLAGS})
+endif()
+
 if(ENABLE_INLINE_ASM)
     set(
         rocrand_ENABLE_INLINE_ASM
@@ -52,9 +57,12 @@ if(HIP_PLATFORM STREQUAL "nvcc")
     )
     set(CUDA_HOST_COMPILER ${CMAKE_CXX_COMPILER})
     CUDA_ADD_LIBRARY(rocrand ${rocRAND_SRCS})
-else()
+elseif(HIP_PLATFORM STREQUAL "hipcl")
     add_library(rocrand ${rocRAND_SRCS})
-
+#    if(TARGET hip::hipcl)
+    target_link_libraries(rocrand PRIVATE hip::hipcl)
+    set(rocrand_DEPENDENCIES "hip")
+else()
     # Remove this check when we no longer build with older rocm stack(ie < 1.8.2)
     if(TARGET hip::device)
       target_link_libraries(rocrand PRIVATE hip::device)
@@ -140,7 +148,11 @@ install(
 # hipRAND library
 
 # Get hipRAND sources
+if(HIP_PLATFORM STREQUAL "hipcl")
+set(hipRAND_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/src/hiprand/hiprand_hcc.cpp)
+else()
 set(hipRAND_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/src/hiprand/hiprand_${HIP_PLATFORM}.cpp)
+endif()
 
 # Configure a header file to pass the hipRAND version
 configure_file(
@@ -160,16 +172,20 @@ if(HIP_PLATFORM STREQUAL "nvcc")
 else()
     add_library(hiprand ${hipRAND_SRCS})
 endif()
+
 target_include_directories(hiprand
     PUBLIC
         $<BUILD_INTERFACE:${PROJECT_BINARY_DIR}/library/include>
         $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/library/include>
         $<INSTALL_INTERFACE:hiprand/include>
 )
+
 if(HIP_PLATFORM STREQUAL "nvcc")
     target_link_libraries(hiprand
         ${CUDA_curand_LIBRARY}
     )
+elseif(HIP_PLATFORM STREQUAL "hipcl")
+    target_link_libraries(hiprand PRIVATE rocrand hip::hipcl)
 else()
     # Remove this check when we no longer build with older rocm stack(ie < 1.8.2)
     if(TARGET hip::device)
@@ -181,7 +197,7 @@ else()
         target_link_libraries(hiprand PRIVATE --amdgpu-target=${amdgpu_target})
     endforeach()
 endif()
-  
+
 rocm_set_soversion(hiprand ${hiprand_SOVERSION})
 set_target_properties(hiprand
     PROPERTIES
