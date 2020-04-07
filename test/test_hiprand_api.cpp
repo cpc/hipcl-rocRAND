@@ -21,6 +21,7 @@
 #include <stdio.h>
 #include <gtest/gtest.h>
 
+#include <cassert>
 #include <hip/hip_runtime.h>
 #include <hiprand.h>
 #include <cmath>
@@ -42,6 +43,7 @@ void hiprand_generate_test_func()
         output_size * sizeof(unsigned int))
     );
     HIP_CHECK(hipDeviceSynchronize());
+    assert(output);
 
     // generate
     HIPRAND_CHECK(hiprandGenerate(generator, output, output_size));
@@ -107,6 +109,7 @@ void hiprand_generate_uniform_test_func()
         output_size * sizeof(float))
     );
     HIP_CHECK(hipDeviceSynchronize());
+    assert(output);
 
     // generate
     HIPRAND_CHECK(hiprandGenerateUniform(generator, output, output_size));
@@ -172,6 +175,7 @@ void hiprand_generate_uniform_double_test_func()
         output_size * sizeof(double))
     );
     HIP_CHECK(hipDeviceSynchronize());
+    assert(output);
 
     // generate
     HIPRAND_CHECK(hiprandGenerateUniformDouble(generator, output, output_size));
@@ -237,6 +241,7 @@ void hiprand_generate_normal_test_func()
         output_size * sizeof(float))
     );
     HIP_CHECK(hipDeviceSynchronize());
+    assert(output);
 
     // generate
     HIPRAND_CHECK(hiprandGenerateNormal(generator, output, output_size, 0, 1));
@@ -310,6 +315,7 @@ void hiprand_generate_normal_double_test_func()
         output_size * sizeof(double))
     );
     HIP_CHECK(hipDeviceSynchronize());
+    assert(output);
 
     // generate
     HIPRAND_CHECK(hiprandGenerateNormalDouble(generator, output, output_size, 0, 1));
@@ -383,6 +389,7 @@ void hiprand_generate_lognormal_test_func()
         output_size * sizeof(float))
     );
     HIP_CHECK(hipDeviceSynchronize());
+    assert(output);
 
     // generate
     HIPRAND_CHECK(hiprandGenerateLogNormal(generator, output, output_size, 1.6f, 0.25f));
@@ -460,6 +467,7 @@ void hiprand_generate_lognormal_double_test_func()
         output_size * sizeof(double))
     );
     HIP_CHECK(hipDeviceSynchronize());
+    assert(output);
 
     // generate
     HIPRAND_CHECK(hiprandGenerateLogNormalDouble(generator, output, output_size, 1.6, 0.25));
@@ -538,6 +546,7 @@ void hiprand_generate_poisson_test_func()
         output_size * sizeof(unsigned int))
     );
     HIP_CHECK(hipDeviceSynchronize());
+    assert(output);
 
     // generate
     HIPRAND_CHECK(hiprandGeneratePoisson(generator, output, output_size, lambda));
