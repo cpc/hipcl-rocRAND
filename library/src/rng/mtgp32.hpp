@@ -191,7 +191,7 @@ public:
           m_engines_initialized(false), m_engines(NULL), m_engines_size(s_blocks)
     {
         // Allocate device random number engines
-        auto error = hipMalloc(&m_engines, sizeof(engine_type) * m_engines_size);
+        auto error = hipMalloc((void**)&m_engines, sizeof(engine_type) * m_engines_size);
         if(error != hipSuccess)
         {
             throw ROCRAND_STATUS_ALLOCATION_FAILED;

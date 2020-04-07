@@ -259,7 +259,7 @@ public:
           m_engines_size(s_threads * s_blocks / s_threads_per_engine)
     {
         // Allocate device random number engines
-        auto error = hipMalloc(&m_engines, sizeof(engine_type) * m_engines_size);
+        auto error = hipMalloc((void**)&m_engines, sizeof(engine_type) * m_engines_size);
         if(error != hipSuccess)
         {
             throw ROCRAND_STATUS_ALLOCATION_FAILED;

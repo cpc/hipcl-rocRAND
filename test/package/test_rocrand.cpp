@@ -48,7 +48,7 @@ int main(int argc, char *argv[])
 
     const size_t size = 128;
     unsigned int * data = NULL;
-    HIP_CHECK(hipMalloc(&data, size * sizeof(unsigned int)));
+    HIP_CHECK(hipMalloc((void**)&data, size * sizeof(unsigned int)));
     ROCRAND_CHECK(rocrand_generate(generator, (unsigned int *) data, size));
     HIP_CHECK(hipDeviceSynchronize());
 

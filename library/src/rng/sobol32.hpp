@@ -156,7 +156,7 @@ public:
     {
         // Allocate direction vectors
         hipError_t error;
-        error = hipMalloc(&m_direction_vectors, sizeof(unsigned int) * SOBOL_N);
+        error = hipMalloc((void**)&m_direction_vectors, sizeof(unsigned int) * SOBOL_N);
         if(error != hipSuccess)
         {
             throw ROCRAND_STATUS_ALLOCATION_FAILED;

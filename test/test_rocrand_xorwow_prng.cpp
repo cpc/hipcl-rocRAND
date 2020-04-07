@@ -65,7 +65,7 @@ TEST(rocrand_xorwow_prng_tests, uniform_uint_test)
 {
     const size_t size = 1313;
     unsigned int * data;
-    HIP_CHECK(hipMalloc(&data, sizeof(unsigned int) * size));
+    HIP_CHECK(hipMalloc((void**)&data, sizeof(unsigned int) * size));
 
     rocrand_xorwow g;
     ROCRAND_CHECK(g.generate(data, size));
@@ -90,7 +90,7 @@ TEST(rocrand_xorwow_prng_tests, uniform_float_test)
 {
     const size_t size = 1313;
     float * data;
-    hipMalloc(&data, sizeof(float) * size);
+    hipMalloc((void**)&data, sizeof(float) * size);
 
     rocrand_xorwow g;
     ROCRAND_CHECK(g.generate(data, size));
@@ -120,7 +120,7 @@ TEST(rocrand_xorwow_prng_tests, state_progress_test)
     // Device data
     const size_t size = 1025;
     unsigned int * data;
-    HIP_CHECK(hipMalloc(&data, sizeof(unsigned int) * size));
+    HIP_CHECK(hipMalloc((void**)&data, sizeof(unsigned int) * size));
 
     // Generator
     rocrand_xorwow g0;
@@ -162,7 +162,7 @@ TEST(rocrand_xorwow_prng_tests, same_seed_test)
     // Device side data
     const size_t size = 1024;
     unsigned int * data;
-    HIP_CHECK(hipMalloc(&data, sizeof(unsigned int) * size));
+    HIP_CHECK(hipMalloc((void**)&data, sizeof(unsigned int) * size));
 
     // Generators
     rocrand_xorwow g0, g1;
@@ -206,7 +206,7 @@ TEST(rocrand_xorwow_prng_tests, different_seed_test)
     // Device side data
     const size_t size = 1024;
     unsigned int * data;
-    HIP_CHECK(hipMalloc(&data, sizeof(unsigned int) * size));
+    HIP_CHECK(hipMalloc((void**)&data, sizeof(unsigned int) * size));
 
     // Generators
     rocrand_xorwow g0, g1;

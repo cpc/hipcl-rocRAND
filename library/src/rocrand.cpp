@@ -877,7 +877,7 @@ rocrand_create_poisson_distribution(double lambda,
     }
 
     hipError_t error;
-    error = hipMalloc(discrete_distribution, sizeof(rocrand_discrete_distribution_st));
+    error = hipMalloc((void**)discrete_distribution, sizeof(rocrand_discrete_distribution_st));
     if (error != hipSuccess)
     {
         return ROCRAND_STATUS_ALLOCATION_FAILED;
@@ -921,7 +921,7 @@ rocrand_create_discrete_distribution(const double * probabilities,
     }
 
     hipError_t error;
-    error = hipMalloc(discrete_distribution, sizeof(rocrand_discrete_distribution_st));
+    error = hipMalloc((void**)discrete_distribution, sizeof(rocrand_discrete_distribution_st));
     if (error != hipSuccess)
     {
         return ROCRAND_STATUS_ALLOCATION_FAILED;
